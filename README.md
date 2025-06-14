@@ -8,7 +8,6 @@ This repository contains the dataset and code used in my Master's thesis:
 
 - `data/` — processed dataset used for analysis (non-sensitive data)
 - `code/` — Python scripts for data processing, analysis, and visualization
-- `notebooks/` — Jupyter Notebook replicating core parts of the analysis
 
 ## Dataset
 
