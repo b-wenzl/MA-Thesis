@@ -1,0 +1,103 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "yZM1k7jtFbbJ",
+        "outputId": "d623b049-992a-469d-aa4d-a77c8094e262"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Mounted at /content/drive\n"
+          ]
+        }
+      ],
+      "source": [
+        "from google.colab import drive\n",
+        "drive.mount('/content/drive')"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Load dataset\n",
+        "file_path = '/content/drive/My Drive/MA_Dataset.csv'\n",
+        "df = pd.read_csv(file_path)"
+      ],
+      "metadata": {
+        "id": "0GuLYehuFs9I"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Normalize column names\n",
+        "df.columns = df.columns.str.strip()\n",
+        "\n",
+        "# Clean and normalize 'name' column\n",
+        "df = df[df['name'].notna()]  # remove NaNs\n",
+        "df['name'] = df['name'].astype(str).str.strip().str.lower()\n",
+        "\n",
+        "# Remove duplicates based on cleaned 'name'\n",
+        "df_unique = df.drop_duplicates(subset='name')\n",
+        "\n",
+        "# Randomly sample 50 unique entries\n",
+        "sample_df = df_unique.sample(n=50, random_state=42)\n",
+        "\n",
+        "# Keep desired columns\n",
+        "columns_to_keep = ['name', 'goal', 'methods_and_models', 'risks']\n",
+        "filtered_df = sample_df[columns_to_keep]\n",
+        "\n",
+        "# Save to CSV\n",
+        "output_path = 'sampled_50_unique_filtered.csv'\n",
+        "filtered_df.to_csv(output_path, index=False)\n",
+        "\n",
+        "print(f\"Filtered sample with unique 'name' entries saved to {output_path}\")\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "cx2ofM5lFxTS",
+        "outputId": "92aeb16b-2c90-4a7a-c21a-6ae8c396794d"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Filtered sample with unique 'name' entries saved to sampled_50_unique_filtered.csv\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
