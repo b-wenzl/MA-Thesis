@@ -75,7 +75,4 @@ Main packages used:
 - openai
 - scikit-learn
 
-You can install dependencies via:
 
-```bash
-pip install -r requirements.txt
